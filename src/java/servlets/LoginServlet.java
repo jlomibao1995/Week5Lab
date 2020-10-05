@@ -31,10 +31,11 @@ public class LoginServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         
         if (username != null) {
-           getServletContext().getRequestDispatcher("/WEB-INF/hello.jsp").forward(request, response); 
+           response.sendRedirect("home");
         }
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        else {
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        }
 
     }
 
@@ -56,12 +57,14 @@ public class LoginServlet extends HttpServlet {
         
         if (user != null) {
             session.setAttribute("username", user.getUsername());
+            response.sendRedirect("home"); 
         }
         else {
             request.setAttribute("message", "Invalid login.");
+            request.setAttribute("username", username);
+            request.setAttribute("password", password);
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
 
