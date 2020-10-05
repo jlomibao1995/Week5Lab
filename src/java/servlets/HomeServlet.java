@@ -12,25 +12,25 @@ import javax.servlet.http.HttpSession;
  * @author Jean
  */
 public class HomeServlet extends HttpServlet {
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
+        
         String username = (String) session.getAttribute("username");
-
+        
         if (username != null) {
             getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
         } else {
             response.sendRedirect("login");
         }
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
-
+    
 }

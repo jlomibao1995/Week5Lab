@@ -1,4 +1,3 @@
-
 package servlets;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ import model.User;
  * @author Jean
  */
 public class LoginServlet extends HttpServlet {
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -23,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         
         String logout = request.getParameter("logout");
         
-        if (logout != null){
+        if (logout != null) {
             session.invalidate();
             session = request.getSession();
         }
@@ -31,14 +30,13 @@ public class LoginServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         
         if (username != null) {
-           response.sendRedirect("home");
-        }
-        else {
+            response.sendRedirect("home");
+        } else {
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
-
+        
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -57,15 +55,13 @@ public class LoginServlet extends HttpServlet {
         
         if (user != null) {
             session.setAttribute("username", user.getUsername());
-            response.sendRedirect("home"); 
-        }
-        else {
+            response.sendRedirect("home");            
+        } else {
             request.setAttribute("message", "Invalid login.");
             request.setAttribute("username", username);
             request.setAttribute("password", password);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }
-
-
+    
 }
